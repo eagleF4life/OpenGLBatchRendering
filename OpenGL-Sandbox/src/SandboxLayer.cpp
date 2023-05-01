@@ -23,10 +23,15 @@ void SandboxLayer::OnAttach()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     float vertices[] = {
+        -1.5f, -0.5f, 0.0f,
         -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.5f,  0.5f, 0.0f,
         -0.5f,  0.5f, 0.0f,
+        -1.5f,  0.5f, 0.0f,
+
+         0.5f, -0.5f, 0.0f,
+         1.5f, -0.5f, 0.0f,
+         1.5f,  0.5f, 0.0f,
+         0.5f,  0.5f, 0.0f,
     };
 
     // Vertex Array
@@ -43,7 +48,8 @@ void SandboxLayer::OnAttach()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
     uint32_t indices[] = {
-        0, 1, 2, 2, 3, 0
+        0, 1, 2, 2, 3, 0,
+        4, 5, 6, 6, 7, 4
     };
 
     // Index Buffer
@@ -79,7 +85,7 @@ void SandboxLayer::OnUpdate(Timestep ts)
     m_Shader->SetUniform4fv(m_Shader->GetRendererID(), "u_Color", m_SquareColor);
 
     glBindVertexArray(m_QuadVA);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, nullptr);
 }
 
 void SandboxLayer::OnImGuiRender()
