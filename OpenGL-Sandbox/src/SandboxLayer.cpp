@@ -23,15 +23,15 @@ void SandboxLayer::OnAttach()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     float vertices[] = {
-        -1.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
-        -1.5f,  0.5f, 0.0f,
+        -1.5f, -0.5f, 0.0f, 0.18f, 0.6f, 0.96f, 1.0f, // position X,Y,Z and RGBa - 7 floats
+        -0.5f, -0.5f, 0.0f, 0.18f, 0.6f, 0.96f, 1.0f,
+        -0.5f,  0.5f, 0.0f, 0.18f, 0.6f, 0.96f, 1.0f,
+        -1.5f,  0.5f, 0.0f, 0.18f, 0.6f, 0.96f, 1.0f,
 
-         0.5f, -0.5f, 0.0f,
-         1.5f, -0.5f, 0.0f,
-         1.5f,  0.5f, 0.0f,
-         0.5f,  0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f, 1.0f, 0.93f, 0.24f, 1.0f,
+         1.5f, -0.5f, 0.0f, 1.0f, 0.93f, 0.24f, 1.0f,
+         1.5f,  0.5f, 0.0f, 1.0f, 0.93f, 0.24f, 1.0f,
+         0.5f,  0.5f, 0.0f, 1.0f, 0.93f, 0.24f, 1.0f,
     };
 
     // Vertex Array
@@ -43,9 +43,13 @@ void SandboxLayer::OnAttach()
     glBindBuffer(GL_ARRAY_BUFFER, m_QuadVB);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // Setup Vertex Attribute Pointer
+    // Setup Vertex Attribute Pointer - For position
     glEnableVertexArrayAttrib(m_QuadVB, 0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), nullptr);
+
+    // For color
+    glEnableVertexArrayAttrib(m_QuadVB, 1);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), reinterpret_cast<const void*>(12));
 
     uint32_t indices[] = {
         0, 1, 2, 2, 3, 0,
@@ -82,7 +86,7 @@ void SandboxLayer::OnUpdate(Timestep ts)
     const auto& vpMat = m_CameraController.GetCamera().GetViewProjectionMatrix();
     m_Shader->SetUniformMat4(m_Shader->GetRendererID(), "u_ViewProj", vpMat);
     m_Shader->SetUniformMat4(m_Shader->GetRendererID(), "u_Transform", glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
-    m_Shader->SetUniform4fv(m_Shader->GetRendererID(), "u_Color", m_SquareColor);
+    //m_Shader->SetUniform4fv(m_Shader->GetRendererID(), "u_Color", m_SquareColor);
 
     glBindVertexArray(m_QuadVA);
     glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, nullptr);
@@ -90,7 +94,7 @@ void SandboxLayer::OnUpdate(Timestep ts)
 
 void SandboxLayer::OnImGuiRender()
 {
-	// ImGui here
+    // ImGui here
 }
 
 
