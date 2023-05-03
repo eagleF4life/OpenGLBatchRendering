@@ -24,4 +24,7 @@ public:
     glm::vec4 m_SquareBaseColor = { 0.8f, 0.2f, 0.3f, 1.0f };
     glm::vec4 m_SquareAlternateColor = { 0.2f, 0.3f, 0.8f, 1.0f };
     glm::vec4 m_SquareColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    GLuint m_ArsenalTex;
+    GLuint m_BenficaTex;
 };
