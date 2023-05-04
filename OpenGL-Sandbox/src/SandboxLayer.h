@@ -27,4 +27,7 @@ public:
 
     GLuint m_ArsenalTex;
     GLuint m_BenficaTex;
+
+    float m_QuadAPosition[2] = {-1.5, -0.5f };
+    float m_QuadBPosition[2] = { 0.5, -0.5f };
 };
