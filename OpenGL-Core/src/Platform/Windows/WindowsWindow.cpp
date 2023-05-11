@@ -66,6 +66,7 @@ namespace GLCore {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			data.Width = width;
 			data.Height = height;
+			glViewport(0, 0, width, height);
 
 			WindowResizeEvent event(width, height);
 			data.EventCallback(event);
